@@ -7,10 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @ORM\Entity(repositoryClass=ConferenceRepository::class)
- * @UniqueEntity("slag")
+ * @UniqueEntity("slug")
  */
 class Conference
 {
@@ -45,8 +46,8 @@ class Conference
      * @ORM\Column(type="string", length=255)
      * @ORM\Column(type="string", length=255, unique=true)
      */
-    //todo  SET SLAG UNIQUE IN MIGRATION
-    private $slag;
+    //todo  SET slug UNIQUE IN MIGRATION
+    private $slug;
 
     public function __construct()
     {
@@ -129,15 +130,22 @@ class Conference
         return $this;
     }
 
-    public function getSlag(): ?string
+    public function getSlug(): ?string
     {
-        return $this->slag;
+        return $this->slug;
     }
 
-    public function setSlag(string $slag): self
+    public function setSlug(string $slug): self
     {
-        $this->slag = $slag;
+        $this->slug = $slug;
 
         return $this;
+    }
+
+    public function computeSlug(SluggerInterface $slugger)
+    {
+        if (!$this->slug || '-' === $this->slug) {
+            $this->slug = (string) $slugger->slug((string) $this)->lower();
+        }
     }
 }

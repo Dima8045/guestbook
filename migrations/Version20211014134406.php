@@ -19,13 +19,11 @@ final class Version20211014134406 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
-
+        $this->addSql('ALTER TABLE conference ADD CONSTRAINT conference_slug_key UNIQUE (slug)');
     }
 
     public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE SCHEMA public');
+        $this->addSql('ALTER TABLE conference DROP CONSTRAINT conference_slug_key');
     }
 }
