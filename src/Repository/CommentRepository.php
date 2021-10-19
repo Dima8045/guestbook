@@ -31,7 +31,7 @@ class CommentRepository extends ServiceEntityRepository
             ->setParameter('conference', $conference)
             ->orderBy('c.createdAt', 'DESC')
             ->setMaxResults(self::PAGINATOR_PER_PAGE)
-            ->setFirstResult($offset - 1)
+            ->setFirstResult($offset)
             ->getQuery();
 
         return new Paginator($query);
