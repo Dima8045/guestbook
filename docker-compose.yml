@@ -9,3 +9,7 @@ services:
       POSTGRES_DB: guestbook
     ports:
       - '6432:5432'
+
+  mailer:
+    image: schickling/mailcatcher
+    ports: [ 1025, 1080 ]
