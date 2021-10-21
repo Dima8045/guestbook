@@ -33,7 +33,7 @@ final class Version20211020105051 extends AbstractMigration
         $this->addSql('DROP TRIGGER IF EXISTS notify_trigger ON messenger_messages;');
         $this->addSql('CREATE TRIGGER notify_trigger AFTER INSERT OR UPDATE ON messenger_messages FOR EACH ROW EXECUTE PROCEDURE notify_messenger_messages();');
         $this->addSql('ALTER TABLE comment ALTER state SET DEFAULT \'submitted\'');
-        $this->addSql('ALTER TABLE comment ALTER state TYPE VARCHAR(10)');
+        $this->addSql('ALTER TABLE comment ALTER state TYPE VARCHAR(255)');
     }
 
     public function down(Schema $schema): void
